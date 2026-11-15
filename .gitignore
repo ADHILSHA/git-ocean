@@ -9,3 +9,4 @@ frontend/playwright-report/
 .impeccable/mocks/
 .impeccable/review/
 .DS_Store
+frontend/tsconfig.tsbuildinfo

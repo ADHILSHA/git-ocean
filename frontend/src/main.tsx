@@ -14,3 +14,10 @@ createRoot(document.getElementById('root')!).render(
     </BrowserRouter>
   </StrictMode>,
 )
+
+if (import.meta.env.DEV) {
+  // e2e/manual debugging handle; stripped from production builds.
+  import('./store/oceanStore').then(({ useOcean }) => {
+    ;(window as unknown as { __ocean: typeof useOcean }).__ocean = useOcean
+  })
+}

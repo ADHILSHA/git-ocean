@@ -24,6 +24,6 @@ void main() {
   a += shaft(uv,  0.48, 0.08, 0.31, 0.15, 5.9) * 0.9;
   a += shaft(uv,  0.78, 0.035, 0.27, 0.23, 6.6) * 0.6;
   float fall = smoothstep(-0.15, 1.0, uv.y); // brightest near the surface
-  vec3 col = vec3(0.55, 0.85, 0.95) * a * fall * uStrength * 0.16;
+  vec3 col = vec3(0.25, 0.65, 0.85) * a * fall * uStrength * 0.07;
   gl_FragColor = vec4(col, 1.0);
 }

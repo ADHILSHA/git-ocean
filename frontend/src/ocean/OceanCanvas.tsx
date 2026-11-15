@@ -1,6 +1,8 @@
 import { Canvas } from '@react-three/fiber'
 import { Bloom, EffectComposer, Vignette } from '@react-three/postprocessing'
 import { CameraRig, initialCamera } from './CameraRig'
+import { CreatureField } from './CreatureField'
+import { trackPointer } from './pointer'
 import { Plankton } from './Plankton'
 import { GodRays, Water } from './Water'
 import { FOV } from './world'
@@ -13,10 +15,14 @@ export function OceanCanvas() {
       gl={{ antialias: false, powerPreference: 'high-performance', stencil: false }}
       camera={{ position: [initialCamera.x, initialCamera.y, initialCamera.z], fov: FOV, near: 0.5, far: 2400 }}
       aria-hidden="true"
+      onCreated={({ gl }) => {
+        trackPointer(gl.domElement)
+      }}
     >
       <fog attach="fog" args={['#0a3550', 260, 1400]} />
       <Water />
       <Plankton />
+      <CreatureField />
       <GodRays />
       <CameraRig />
       <EffectComposer multisampling={0}>
