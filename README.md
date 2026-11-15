@@ -2,6 +2,8 @@
 
 **GitHub is an ocean. Dive in.**
 
+![Drifting at 300m, searching "react", and diving to 9,000m where its creature waits](docs/demo.gif)
+
 Git Ocean shows GitHub's open-source ecosystem as a living 3D ocean. Every repo is a creature. You can see how big, how alive and how neglected a project is before you read a single number.
 
 - Search for a repo and the camera plunges to it.

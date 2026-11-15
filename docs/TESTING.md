@@ -68,3 +68,20 @@ Use a desktop browser first, then repeat 1–3 on a phone.
 ## Known issues
 
 See `docs/known-issues.md`. In short: not deployed yet (no Vercel credentials), the live GitHub query hasn't run against GitHub (no token), and motion/flee feel needs a human check on real hardware.
+
+## Re-recording the README demo GIF
+
+With `pnpm dev` running and Chrome installed:
+
+```bash
+cd frontend
+node e2e/demo.mjs /tmp/ocean-frames      # ~10s of timed frames via Chrome's screencast
+cd /tmp/ocean-frames
+ffmpeg -f concat -i list.ffconcat -filter_complex "
+[0:v]fps=14,scale=640:-1:flags=lanczos,split[s1][s2];
+[s1]trim=end=5.3,setpts=PTS-STARTPTS,split[a1][b1];[a1]palettegen=max_colors=128:stats_mode=diff[p1];[b1][p1]paletteuse=dither=bayer:bayer_scale=4:diff_mode=rectangle[o1];
+[s2]trim=start=5.3,setpts=PTS-STARTPTS,split[a2][b2];[a2]palettegen=max_colors=128:stats_mode=diff[p2];[b2][p2]paletteuse=dither=bayer:bayer_scale=4:diff_mode=rectangle[o2];
+[o1][o2]concat=n=2:v=1[out]" -map "[out]" -loop 0 ~/Desktop/projects/git-ocean/docs/demo.gif
+```
+
+The shallows and the abyss each get their own palette (split at 5.3s, just after Enter); a single palette leaves blotches in the water gradient. VHS can't be used here: it records terminals, not WebGL pages.
