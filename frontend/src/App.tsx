@@ -6,6 +6,7 @@ import { DepthCompass } from './components/DepthCompass'
 import { Flash } from './components/Flash'
 import { DataNote } from './components/DataNote'
 import { InfoCard } from './components/InfoCard'
+import { PermalinkDive } from './components/PermalinkDive'
 import { useOcean } from './store/oceanStore'
 
 export default function App() {
@@ -23,7 +24,7 @@ export default function App() {
       <InfoCard />
       <Routes>
         <Route path="/" element={null} />
-        <Route path="/dive/:owner/:repo" element={null} />
+        <Route path="/dive/:owner/:repo" element={<PermalinkDive />} />
         <Route path="*" element={null} />
       </Routes>
     </main>
