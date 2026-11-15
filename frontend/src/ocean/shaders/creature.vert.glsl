@@ -12,7 +12,8 @@ varying vec3 vNormal;
 varying float vActivity;
 varying float vPhase;
 varying float vFog;
-varying float vBodyX;
+varying vec3 vBody;
+varying float vApparent;
 varying float vId;
 
 void main() {
@@ -37,7 +38,9 @@ void main() {
   vNormal = normalize(rot * normal);
   vActivity = aActivity;
   vPhase = aPhase;
-  vBodyX = position.x;
+  vBody = position;
+  // Apparent size: how much of the screen this creature covers (0 = speck, ~1 = hero shot).
+  vApparent = aSize / max(1.0, -mv.z);
   vId = aId;
   vFog = -mv.z;
 }

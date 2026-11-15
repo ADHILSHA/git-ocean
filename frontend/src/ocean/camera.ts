@@ -40,11 +40,21 @@ export const landingPosition = (): Vec3 => ({ x: 0, y: depthToY(LANDING_DEPTH_M)
 
 export const clampY = (y: number) => Math.min(depthToY(0), Math.max(depthToY(MAX_DEPTH_M), y))
 
+/** Body length (world units) of the largest possible creature (~250K stars). */
+export const MAX_CREATURE = 98 * 1.5
+
 /**
- * Camera distance that makes a creature of body length `size` fill `fill` of the
- * viewport height (PRD Flow 1: the whale fills 40%+ of the viewport).
+ * Camera distance on arrival. The largest creatures span ~55% of the viewport
+ * width (PRD Flow 1: the whale fills 40%+); smaller ones fill less, sub-linearly,
+ * so scale still reads after the dive instead of every fish looking whale-sized.
+ * Portrait screens use more of their narrow width.
  */
-export function framingDistance(size: number, fovDeg: number, fill = 0.55) {
+export function framingFill(size: number, aspect: number) {
+  const base = aspect < 1 ? 0.8 : 0.55
+  return base * Math.pow(Math.min(1, size / MAX_CREATURE), 0.4)
+}
+
+export function framingDistance(size: number, fovDeg: number, aspect: number) {
   const halfTan = Math.tan((fovDeg * Math.PI) / 360)
-  return Math.max(6, size / (fill * 2 * halfTan))
+  return Math.max(6, size / (framingFill(size, aspect) * 2 * halfTan * aspect))
 }

@@ -1,6 +1,6 @@
 # Progress
 
-## Status: Phase 3 done
+## Status: Phase 4 done
 
 Build in progress. Phases are defined in `CLAUDE.md` under "Build phases." Update this file after every phase (not just at the end) — on resume, read this file first and continue from the first unfinished step.
 
@@ -23,8 +23,13 @@ Build in progress. Phases are defined in `CLAUDE.md` under "Build phases." Updat
 - Client (`data/github.ts`) remembers the last batch in localStorage and falls back to it, then to fixtures. `data/resolve.ts`: local substring match → edge search → `fabricate.ts` (deterministic, flagged `fabricated`).
 - Verified: 23 unit tests incl. cache hit, 403 rate-limit and network-failure fallback, 503 with empty cache, netting count, fabrication determinism, search ranking. GitHub is mocked in every test.
 
-## Phase 4 — Search & Dive, Depth Compass
-Not started.
+## Phase 4 — Search & Dive, Depth Compass ✅
+- `components/SearchBox.tsx`: glass search top-centre, `/` focuses it, Enter dives. Resolves local → edge search → fabricate, then navigates to `/dive/owner/repo`.
+- `ocean/CameraRig.tsx`: idle 0.055 lerp; dive lerp ramps up to 0.11 over 1.1s so the depth counter accelerates, then eases out; on arrival the camera follows the swimming creature. Wheel, touch-drag and arrow/PageUp/PageDown keys swim up and down.
+- Framing: the largest creatures span ~55% of viewport width (80% on portrait); smaller ones fill less, sub-linearly, so scale survives the dive (D-11).
+- `components/DepthCompass.tsx`: left-centre (bottom-left on phones), Plex Mono tabular depth written to the DOM per frame, zone name, thin line + glowing dot. `components/Flash.tsx`: the dive flash.
+- Creature close-ups: glow concentrates into photophore spots when a fish is large on screen, so the bloom doesn't wash out the hero shot; fish geometry refined (forked tail, fins, eye).
+- Verified (`e2e/flow1.mjs`, headless Chrome): search `react` → depth 343 → 412 → 3,234 → 6,170 → 9,002 → arrives ~9,070m in ~2s; whale spans >50% of a 1440×900 viewport and ~67% of a 390×844 one. No console errors.
 
 ## Phase 5 — Info Card & Rescue flow
 Not started.

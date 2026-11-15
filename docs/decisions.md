@@ -33,3 +33,15 @@ PRD §9's sample query doesn't compile (`$names` vs `$q`) and its `staleIssues` 
 
 ## D-10 — Ocean population (Phase 3)
 Five search queries (legends > 40k stars; 4k–40k pushed in 30d; 400–4k pushed in 14d; 40–400 pushed in 7d; new repos < 60d), up to 500 creatures. Skews toward active repos so the shallows aren't empty; change in `batchQueries()`.
+
+## D-11 — Arrival framing is sub-linear in size (Phase 4)
+PRD only requires the *whale* to fill 40%+. Framing every creature at the same fill would make a 20-star repo look as big as react on arrival and erase the size encoding. Fill = `0.55 × (size / maxSize)^0.4` of viewport width (0.8 base on portrait): react ≈ 54%, a ~50-star fish ≈ 29%. Change `framingFill()` in `ocean/camera.ts`.
+
+## D-12 — Dive lerp ramp (Phase 4)
+A plain 0.11 lerp moves fastest on frame one, so the depth counter would *decelerate*, but PRD Flow 1 shows it accelerating (340 → 1,200 → 4,800 → 9,400). The factor ramps from 0.004 to 0.11 over 1.1s (ease-in), then the lerp eases out. The 0.11 target is unchanged.
+
+## D-13 — Depth zone label (Phase 4)
+The Depth Compass shows the real oceanographic zone (sunlight / twilight / midnight / abyssal / hadal) under the metres. It's a reading of the PRD's depth row, not a new encoding. Remove `compass-zone` in `DepthCompass.tsx` if it's judged out of scope.
+
+## D-14 — Navigation input (Phase 4)
+Wheel, touch-drag and arrow/PageUp/PageDown keys move the idle depth target. The PRD doesn't specify free navigation, but Flow 2's "dives deeper" and full mobile parity (PRODUCT.md) need it, and it's camera Y only.

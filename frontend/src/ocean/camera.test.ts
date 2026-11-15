@@ -16,8 +16,14 @@ describe('camera maths', () => {
     expect(diveFactor(5)).toBeCloseTo(DIVE_LERP)
   })
   it('framing distance fills the requested fraction of the view', () => {
-    const d = framingDistance(98, 55, 0.55)
-    const visibleH = 2 * d * Math.tan((55 * Math.PI) / 360)
-    expect(98 / visibleH).toBeCloseTo(0.55)
+    const tan = Math.tan((55 * Math.PI) / 360)
+    const whale = 95 * 1.5 // react-sized
+    const d = framingDistance(whale, 55, 1.6)
+    expect(whale / (2 * d * tan * 1.6)).toBeGreaterThan(0.4) // PRD: 40%+ of the viewport
+    const p = framingDistance(whale, 55, 0.5)
+    expect(whale / (2 * p * tan * 0.5)).toBeGreaterThan(0.75)
+    const minnow = 10 * 1.5
+    const m = framingDistance(minnow, 55, 1.6)
+    expect(minnow / (2 * m * tan * 1.6)).toBeLessThan(0.3) // small stays visibly small
   })
 })

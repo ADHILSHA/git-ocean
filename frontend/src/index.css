@@ -61,3 +61,195 @@ input {
   inset: 0;
   touch-action: none;
 }
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- glass: the brief's HUD material (PRD §7.2, §7.4) ---------- */
+.glass {
+  background: var(--glass);
+  border: 1px solid var(--glass-edge);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  box-shadow: 0 18px 40px -18px rgba(0, 6, 15, 0.9), inset 0 1px 0 rgba(200, 245, 255, 0.08);
+}
+
+/* ---------- search ---------- */
+.search {
+  position: absolute;
+  top: calc(env(safe-area-inset-top, 0px) + 20px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(560px, calc(100% - 32px));
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 6px 6px 16px;
+  border-radius: 18px;
+  z-index: 10;
+  transition: border-color 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
+}
+.search:focus-within {
+  border-color: rgba(143, 227, 255, 0.55);
+  box-shadow: 0 18px 40px -18px rgba(0, 6, 15, 0.9), 0 0 28px -6px rgba(143, 227, 255, 0.45), inset 0 1px 0 rgba(200, 245, 255, 0.12);
+}
+.search-icon {
+  flex: none;
+  color: var(--ink-soft);
+}
+.search-icon.is-pinging {
+  color: var(--glow);
+  animation: ping 0.9s var(--ease-out) infinite;
+}
+@keyframes ping {
+  50% {
+    opacity: 0.4;
+  }
+}
+.search input {
+  flex: 1;
+  min-width: 0;
+  height: 42px;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font: 500 1rem/1 var(--font-ui);
+  letter-spacing: 0.005em;
+  outline: none;
+}
+.search input::placeholder {
+  color: var(--ink-faint);
+}
+.search input::-webkit-search-cancel-button {
+  display: none;
+}
+.search-go {
+  flex: none;
+  height: 42px;
+  padding: 0 18px;
+  border-radius: 13px;
+  border: 1px solid rgba(143, 227, 255, 0.35);
+  background: rgba(143, 227, 255, 0.14);
+  color: var(--ink);
+  font: 600 0.9375rem/1 var(--font-ui);
+  cursor: pointer;
+  transition: background 0.2s var(--ease-out), opacity 0.2s;
+}
+.search-go:hover:not(:disabled) {
+  background: rgba(143, 227, 255, 0.26);
+}
+.search-go:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+/* ---------- depth compass ---------- */
+.compass {
+  position: absolute;
+  left: max(20px, env(safe-area-inset-left, 0px));
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  gap: 14px;
+  align-items: stretch;
+  pointer-events: none;
+  z-index: 5;
+}
+.compass-line {
+  position: relative;
+  width: 1px;
+  min-height: 132px;
+  background: linear-gradient(rgba(143, 227, 255, 0.7), rgba(143, 227, 255, 0.05));
+}
+.compass-dot {
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--glow);
+  box-shadow: 0 0 6px 1px rgba(143, 227, 255, 0.9), 0 0 18px 4px rgba(143, 227, 255, 0.35);
+}
+.compass-read {
+  display: grid;
+  grid-template-columns: auto auto;
+  align-content: start;
+  column-gap: 4px;
+  margin-top: -0.3em;
+}
+.compass-num {
+  font: 500 clamp(2.25rem, 4.2vw, 3.5rem) / 1 var(--font-measure);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.04em;
+  color: var(--ink);
+  text-shadow: 0 2px 18px rgba(0, 6, 15, 0.6);
+}
+.compass-unit {
+  align-self: end;
+  padding-bottom: 0.35em;
+  font: 400 1rem/1 var(--font-measure);
+  color: var(--ink-soft);
+}
+.compass-zone {
+  grid-column: 1 / -1;
+  margin-top: 10px;
+  font: 500 0.8125rem/1.2 var(--font-ui);
+  letter-spacing: 0.02em;
+  color: var(--ink-soft);
+}
+
+/* ---------- flash ---------- */
+.flash {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 40%, rgba(225, 250, 255, 0.95), rgba(143, 227, 255, 0.35) 55%, rgba(143, 227, 255, 0) 80%);
+  animation: flash 0.75s var(--ease-out) forwards;
+}
+@keyframes flash {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.data-note {
+  position: absolute;
+  left: max(20px, env(safe-area-inset-left, 0px));
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 16px);
+  margin: 0;
+  max-width: min(42ch, calc(100% - 40px));
+  font: 400 0.8125rem/1.4 var(--font-ui);
+  color: var(--ink-faint);
+  z-index: 4;
+}
+
+@media (max-width: 640px) {
+  .compass {
+    top: auto;
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 56px);
+    transform: none;
+  }
+  .compass-line {
+    min-height: 72px;
+  }
+  .compass-num {
+    font-size: 2rem;
+  }
+  .search-go {
+    padding: 0 14px;
+  }
+}

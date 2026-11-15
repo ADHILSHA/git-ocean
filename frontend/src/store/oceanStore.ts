@@ -82,7 +82,7 @@ export const useOcean = create<OceanState>((set, get) => ({
     set({ camera: { ...camera, mode: 'arrived' } })
     get().select(camera.targetId)
   },
-  endDive: () => set((s) => ({ camera: { mode: 'idle', targetId: null, diveStartedAt: 0 }, selectionId: s.selectionId })),
+  endDive: () => set({ camera: { mode: 'idle', targetId: null, diveStartedAt: 0 } }),
   setReducedMotion: (v) => set({ reducedMotion: v }),
 }))
 
