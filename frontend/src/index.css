@@ -253,3 +253,223 @@ input {
     padding: 0 14px;
   }
 }
+
+/* ---------- info card (PRD §7.4) ---------- */
+.card {
+  position: absolute;
+  right: max(20px, env(safe-area-inset-right, 0px));
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 20px);
+  width: min(380px, calc(100% - 40px));
+  padding: 18px 20px 20px;
+  border-radius: 20px;
+  z-index: 10;
+  animation: card-in 0.55s var(--ease-out) both;
+}
+@keyframes card-in {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+    filter: blur(6px);
+  }
+}
+.card-head {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  column-gap: 12px;
+}
+.crumb {
+  grid-column: 1;
+  display: flex;
+  gap: 6px;
+  margin: 0 0 4px;
+  font: 400 0.8125rem/1.3 var(--font-measure);
+  color: var(--ink-faint);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.card-title {
+  grid-column: 1;
+  margin: 0;
+  font: 600 1.625rem/1.1 var(--font-ui);
+  letter-spacing: -0.02em;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+.card-close {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  align-self: start;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  margin: -6px -8px 0 0;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+.card-close:hover {
+  background: rgba(143, 227, 255, 0.1);
+  color: var(--ink);
+}
+.card-body {
+  margin: 12px 0 0;
+  font: 400 0.9375rem/1.5 var(--font-ui);
+  color: var(--ink-soft);
+  max-width: 60ch;
+}
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  justify-content: space-between;
+  gap: 12px;
+  margin: 18px 0 0;
+  padding: 14px 0 0;
+  border-top: 1px solid rgba(143, 227, 255, 0.12);
+}
+.stat {
+  min-width: 0;
+}
+.stat dt {
+  margin-bottom: 6px;
+  font: 500 0.75rem/1 var(--font-ui);
+  color: var(--ink-faint);
+}
+.stat dd {
+  margin: 0;
+  font: 500 1.125rem/1.2 var(--font-measure);
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font: 600 0.8125rem/1.2 var(--font-ui);
+  color: var(--ink);
+  white-space: nowrap;
+}
+.chip::before {
+  content: '';
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--chip);
+  box-shadow: 0 0 10px var(--chip);
+}
+.card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+}
+.card-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: 12px;
+  font: 600 0.9375rem/1.1 var(--font-ui);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s var(--ease-out), border-color 0.2s;
+}
+.card-btn.primary {
+  flex: 1 1 auto;
+  border: 1px solid rgba(143, 227, 255, 0.5);
+  background: rgba(143, 227, 255, 0.18);
+  color: #f2fcff;
+}
+.card-btn.primary:hover {
+  background: rgba(143, 227, 255, 0.3);
+}
+.card-btn.ghost {
+  border: 1px solid rgba(143, 227, 255, 0.18);
+  background: transparent;
+  color: var(--ink-soft);
+}
+.card-btn.ghost:hover {
+  color: var(--ink);
+  border-color: rgba(143, 227, 255, 0.4);
+}
+
+/* netted: the rescue (PRD Flow 3) */
+.card.is-netted {
+  border-color: rgba(255, 180, 138, 0.35);
+}
+.net-banner {
+  display: flex;
+  gap: 12px;
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: rgba(255, 160, 110, 0.17);
+  border: 1px solid rgba(255, 180, 138, 0.34);
+}
+.net-icon {
+  flex: none;
+  margin-top: 2px;
+  color: var(--warn);
+}
+.net-title {
+  margin: 0 0 2px;
+  font: 600 0.9375rem/1.3 var(--font-ui);
+  color: #ffd9c2;
+}
+.net-text {
+  margin: 0;
+  font: 400 0.875rem/1.45 var(--font-ui);
+  color: #f3cdb8;
+}
+.net-text a {
+  color: #ffe6d6;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(255, 180, 138, 0.6);
+}
+.card.is-netted .card-btn.primary {
+  border-color: rgba(255, 180, 138, 0.6);
+  background: rgba(255, 180, 138, 0.18);
+  color: #fff3ea;
+}
+.card.is-netted .card-btn.primary:hover {
+  background: rgba(255, 180, 138, 0.3);
+}
+
+@media (max-width: 640px) {
+  .card {
+    left: 12px;
+    right: 12px;
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 12px);
+    width: auto;
+  }
+  .ocean.has-card .compass,
+  .ocean.has-card .data-note {
+    opacity: 0;
+  }
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    animation: none;
+  }
+}
+
+.selection-ring {
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(200, 245, 255, 0.75);
+  box-shadow: 0 0 14px -2px rgba(143, 227, 255, 0.55), inset 0 0 14px -4px rgba(143, 227, 255, 0.45);
+  pointer-events: none;
+  z-index: 3;
+  will-change: transform;
+}

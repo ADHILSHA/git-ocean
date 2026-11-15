@@ -1,6 +1,6 @@
 # Progress
 
-## Status: Phase 4 done
+## Status: Phase 5 done
 
 Build in progress. Phases are defined in `CLAUDE.md` under "Build phases." Update this file after every phase (not just at the end) — on resume, read this file first and continue from the first unfinished step.
 
@@ -31,8 +31,13 @@ Build in progress. Phases are defined in `CLAUDE.md` under "Build phases." Updat
 - Creature close-ups: glow concentrates into photophore spots when a fish is large on screen, so the bloom doesn't wash out the hero shot; fish geometry refined (forked tail, fins, eye).
 - Verified (`e2e/flow1.mjs`, headless Chrome): search `react` → depth 343 → 412 → 3,234 → 6,170 → 9,002 → arrives ~9,070m in ~2s; whale spans >50% of a 1440×900 viewport and ~67% of a 390×844 one. No console errors.
 
-## Phase 5 — Info Card & Rescue flow
-Not started.
+## Phase 5 — Info Card & Rescue flow ✅
+- `components/InfoCard.tsx`: bottom-right glass card (bottom sheet on phones) that slides up on selection: name, `github.com / owner` breadcrumb, species chip in the creature's colour, stars, open issues, pulse %. Escape or × closes it.
+- Netted creatures: "Caught in a net" banner with "N issues unanswered for 2+ years" (N+ when capped), link to the oldest unanswered issue, and "Go to GitHub, oldest issues first →" opening `issues?q=is:issue is:open sort:created-asc`.
+- Fabricated creatures get an "Uncharted water" card saying the creature is imagined, with no fake stats, linking to a GitHub search (D-07).
+- "Dive to it" from any card; once you've dived to it, "Share this dive" copies the permalink (native share sheet on touch devices).
+- Click/tap picking against the CPU swim path; `ocean/SelectionRing.tsx` rings the selected creature on screen.
+- Verified (`e2e/flow23.mjs`) at 1440×900 (mouse) and 390×844 (touch): Flow 2 clicking an active fish opens its card with the repo link; Flow 3 clicking a netted fish shows the banner and the oldest-first issues URL; Escape closes. No console errors.
 
 ## Phase 6 — Shareable permalinks
 Not started.

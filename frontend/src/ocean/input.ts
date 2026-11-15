@@ -94,3 +94,14 @@ export function attachInput(getState: () => RootState) {
     window.removeEventListener('keydown', onKey)
   }
 }
+
+/** Dev-only: lets e2e scripts find where a creature is on screen. */
+export function exposeForTests(getState: () => RootState) {
+  ;(window as unknown as Record<string, unknown>).__screenOf = (id: string) => {
+    const c = useOcean.getState().creatures.find((x) => x.id === id)
+    if (!c) return null
+    const { camera, size } = getState()
+    v.set(...creaturePosition(c, oceanClock.t)).project(camera)
+    return { x: ((v.x + 1) / 2) * size.width, y: ((1 - v.y) / 2) * size.height, z: v.z }
+  }
+}
