@@ -1,8 +1,8 @@
 # Progress
 
-## Status: Phase 6 done
+## Status: All 7 phases done (deploy pending credentials, see blockers B-02)
 
-Build in progress. Phases are defined in `CLAUDE.md` under "Build phases." Update this file after every phase (not just at the end) — on resume, read this file first and continue from the first unfinished step.
+Finish-line docs written: `docs/TESTING.md`. Phases are defined in `CLAUDE.md` under "Build phases." Update this file after every phase (not just at the end) — on resume, read this file first and continue from the first unfinished step.
 
 ## Phase 1 — Ocean Canvas ✅
 - Vite + React 18 + TS + R3F scaffold in `frontend/` (`pnpm dev`, `pnpm build`, `pnpm lint`, `pnpm test`).
@@ -45,5 +45,9 @@ Build in progress. Phases are defined in `CLAUDE.md` under "Build phases." Updat
 - `vercel.json`: SPA rewrite for everything except `/api/*`, immutable caching for hashed assets.
 - Verified (`e2e/flow6.mjs`): cold load of `/dive/facebook/react` → 496 → 4,740 → 8,907 → arrives ~9,071m with the react card open (same end state as searching `react`). `/dive/nobody-here/imaginary-thing` and searching a nonsense term both land on an "Uncharted water" creature; a fabricated permalink reproduces the searched creature.
 
-## Phase 7 — Species log, polish, perf, deploy
-Not started.
+## Phase 7 — Species log, polish, perf, deploy ✅ (deploy blocked)
+- `components/Logbook.tsx`: top-right "Logbook" toggle with 10 species dots. The panel lists species seen (logged silently when you select or arrive at a creature, persisted in localStorage) and a **Nearby** list of the 20 creatures closest to the current depth. The list is the keyboard / screen-reader path into Flows 2 and 3: each button carries name, language, stars, pulse, depth and "caught in a net", opens the Info Card, and moves focus to its title.
+- `prefers-reduced-motion` (`ocean/useReducedMotion.ts`): ocean clock frozen (no swimming, plankton, rays or flee), no idle drift, dives cut straight to the creature, no flash, no card slide-in. All 3 flows still work.
+- Perf: vendor chunks split (`three` 177KB gz, `r3f` 61KB gz, app 65KB gz). `e2e/perf.mjs` on the production build with **4× CPU throttle**: first ocean frame 0.61–1.63s, creatures on screen 0.79–1.83s (cold browser run is the slow one). At 1× CPU: ~0.3s.
+- Verified (`e2e/a11y.mjs`): with reduced motion, depth holds still; "/" + type + Enter dives (cut) and opens the card; the logbook list reaches a netted creature by keyboard only, focus lands on the card title, rescue link correct; axe-core reports 0 violations on the HTML layer (canvas excluded).
+- Deploy: `frontend/vercel.json` ready, but there are no Vercel credentials or CLI on this machine, so nothing was deployed (B-02).

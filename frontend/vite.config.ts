@@ -35,6 +35,15 @@ export default defineConfig(({ mode }) => {
 
   return {
     plugins: [react(), glsl({ compress: false }), edgeApiInDev()],
+    build: {
+      chunkSizeWarningLimit: 900,
+      rollupOptions: {
+        output: {
+          // The 3D stack changes rarely; keep it in its own long-cached chunk.
+          manualChunks: { three: ['three'], r3f: ['@react-three/fiber', '@react-three/postprocessing', 'postprocessing'] },
+        },
+      },
+    },
     test: {
       environment: 'node',
       include: ['src/**/*.test.ts', 'api/**/*.test.ts'],

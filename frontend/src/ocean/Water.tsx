@@ -26,6 +26,7 @@ export function Water() {
   const fogColor = useMemo(() => new THREE.Color(), [])
 
   useFrame(({ camera, scene, clock }) => {
+    if (!performance.getEntriesByName('ocean:first-frame').length) performance.mark('ocean:first-frame')
     const frac = depthFraction(yToDepth(camera.position.y))
     material.uniforms.uDepthFrac.value = frac
     material.uniforms.uTime.value = useOcean.getState().reducedMotion ? 0 : clock.elapsedTime

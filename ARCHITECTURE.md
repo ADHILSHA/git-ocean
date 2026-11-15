@@ -74,3 +74,12 @@ Vercel for both the static frontend build and the `api/github.ts` edge function.
 
 - Edge function cache: in-memory per-region vs. a shared store (e.g. Vercel KV) if cross-region cache misses turn out to matter in practice.
 - Whether `fabricate.ts`'s pseudo-stats should be visually distinguishable from real creatures (PRD doesn't require this, but it affects whether "fake" dives feel like a letdown on reveal).
+
+---
+
+## Build notes (decisions made during the build)
+
+- **CPU mirror of the swim path.** `ocean/motion.ts` repeats `shaders/swim.glsl`'s motion formula so picking (`ocean/input.ts`), the selection ring and the dive camera know where each fish *is* without reading back from the GPU. The two must change together.
+- **Edge function in dev.** `vite.config.ts` mounts `api/github.ts` as Vite middleware, so `pnpm dev` runs the real handler (mock or live) without the Vercel CLI.
+- **Depth HUD outside React.** The camera rig publishes depth every frame to `liveDepth` listeners; `DepthCompass` writes the number straight to the DOM and only re-renders on zone changes.
+- **Open questions resolved:** edge cache is per-isolate memory + CDN `s-maxage` (decisions D-08); fabricated creatures are labelled in the UI (D-07).

@@ -1,0 +1,12 @@
+{
+  "name": "git-ocean-root",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm -C frontend dev",
+    "build": "pnpm -C frontend build",
+    "test": "pnpm -C frontend test",
+    "lint": "pnpm -C frontend lint",
+    "preview": "pnpm -C frontend preview",
+    "e2e": "node frontend/e2e/flow1.mjs . && node frontend/e2e/flow23.mjs . && node frontend/e2e/flow6.mjs . && node frontend/e2e/a11y.mjs ."
+  }
+}

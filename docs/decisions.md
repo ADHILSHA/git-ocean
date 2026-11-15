@@ -45,3 +45,9 @@ The Depth Compass shows the real oceanographic zone (sunlight / twilight / midni
 
 ## D-14 — Navigation input (Phase 4)
 Wheel, touch-drag and arrow/PageUp/PageDown keys move the idle depth target. The PRD doesn't specify free navigation, but Flow 2's "dives deeper" and full mobile parity (PRODUCT.md) need it, and it's camera Y only.
+
+## D-15 — Logbook doubles as the accessible creature list (Phase 7)
+PRODUCT.md requires creatures to be reachable without sight or a pointer. Rather than a second panel, the species log's panel also holds a "Nearby" list (20 creatures closest to current depth) whose buttons open the same Info Card. Species show only once seen ("N species still out there") to keep the log silent and avoid a wall of "not yet seen".
+
+## D-16 — Species are logged on selection (Phase 7)
+"Discovering" a species = selecting or arriving at a creature of that language (not merely having it on screen). Fabricated creatures don't count.

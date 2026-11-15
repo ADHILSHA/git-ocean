@@ -7,10 +7,13 @@ import { Flash } from './components/Flash'
 import { DataNote } from './components/DataNote'
 import { InfoCard } from './components/InfoCard'
 import { PermalinkDive } from './components/PermalinkDive'
+import { Logbook } from './components/Logbook'
+import { useReducedMotion } from './ocean/useReducedMotion'
 import { useOcean } from './store/oceanStore'
 
 export default function App() {
   useOceanData()
+  useReducedMotion()
   const hasCard = useOcean((s) => s.selectionId !== null)
   return (
     <main className={hasCard ? 'ocean has-card' : 'ocean'}>
@@ -21,6 +24,7 @@ export default function App() {
       <SearchBox />
       <DepthCompass />
       <DataNote />
+      <Logbook />
       <InfoCard />
       <Routes>
         <Route path="/" element={null} />

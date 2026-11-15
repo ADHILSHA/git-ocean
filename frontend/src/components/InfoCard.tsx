@@ -75,7 +75,7 @@ export function InfoCard() {
       <section className="card glass" aria-labelledby="card-title" key={creature.id}>
         <header className="card-head">
           <p className="crumb">Uncharted water</p>
-          <h2 id="card-title" ref={heading} className="card-title">
+          <h2 id="card-title" ref={heading} className="card-title" tabIndex={-1}>
             {term}
           </h2>
           <button type="button" className="card-close" onClick={() => useOcean.getState().select(null)} aria-label="Close card">
@@ -104,7 +104,7 @@ export function InfoCard() {
           <span aria-hidden="true">/</span>
           <span>{owner}</span>
         </p>
-        <h2 id="card-title" ref={heading} className="card-title">
+        <h2 id="card-title" ref={heading} className="card-title" tabIndex={-1}>
           {name}
         </h2>
         <button type="button" className="card-close" onClick={() => useOcean.getState().select(null)} aria-label="Close card">

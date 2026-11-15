@@ -97,6 +97,7 @@ export function CreatureField() {
 
   useFrame(({ scene, size }, dt) => {
     const s = useOcean.getState()
+    if (creatures.length && !performance.getEntriesByName('ocean:first-creatures').length) performance.mark('ocean:first-creatures')
     if (!s.reducedMotion) oceanClock.t += Math.min(dt, 0.1)
     uniforms.uTime.value = oceanClock.t
     uniforms.uAspect.value = size.width / size.height
