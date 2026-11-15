@@ -21,3 +21,15 @@ PRD says depth is the inverse of fame but gives no formula. Depth = `150 + fame^
 
 ## D-06 — World scale (Phase 2)
 PRD sizes are "px at zoom 1"; world length = px × 1.5 (`WORLD_UNITS_PER_PX`). Only affects how big fish read in idle drift; the dive frames each creature by its own size.
+
+## D-07 — Fabricated creatures are labelled, not passed off as real (Phase 3)
+Answers ARCHITECTURE.md's open question. A fabricated creature gets deterministic pseudo-stats only so it has a size, colour and depth; the Info Card says it's uncharted and shows no numbers, and its link goes to a GitHub search for the term. Showing invented star counts as fact would break the "data is the art" principle (PRODUCT.md).
+
+## D-08 — Edge cache: per-isolate memory + CDN, no KV (Phase 3)
+Answers ARCHITECTURE.md's other open question. In-memory per isolate plus Vercel's CDN cache via `s-maxage` / `stale-while-revalidate`. Revisit with Vercel KV only if cross-region misses show up in rate-limit usage.
+
+## D-09 — Netting query (Phase 3)
+PRD §9's sample query doesn't compile (`$names` vs `$q`) and its `staleIssues` filter (`since`) counts recently *updated* issues, not stale ones. Instead each repo fetches its 20 oldest open issues with comment counts, and netting counts those older than 2 years with zero comments. The count is a lower bound when all 20 qualify (`staleUnansweredCapped`, shown as "20+"). Commit frequency comes from default-branch `history(since: 30 days ago)`.
+
+## D-10 — Ocean population (Phase 3)
+Five search queries (legends > 40k stars; 4k–40k pushed in 30d; 400–4k pushed in 14d; 40–400 pushed in 7d; new repos < 60d), up to 500 creatures. Skews toward active repos so the shallows aren't empty; change in `batchQueries()`.

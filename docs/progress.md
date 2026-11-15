@@ -1,6 +1,6 @@
 # Progress
 
-## Status: Phase 2 done
+## Status: Phase 3 done
 
 Build in progress. Phases are defined in `CLAUDE.md` under "Build phases." Update this file after every phase (not just at the end) — on resume, read this file first and continue from the first unfinished step.
 
@@ -16,8 +16,12 @@ Build in progress. Phases are defined in `CLAUDE.md` under "Build phases." Updat
 - Flee is driven by pointer *movement* energy, so fish settle back when the pointer rests (lets you click small fish). Flee fades out between 30 and 70 world units of body length.
 - Verified: screenshots at 300m and 8,000m show distinct sizes/colours/netting; 61fps in headless Chrome; 11 unit tests on the metaphor table. Flee *feel* needs a human check (see known-issues).
 
-## Phase 3 — GitHub data layer
-Not started.
+## Phase 3 — GitHub data layer ✅ (mock-verified; live path needs a token)
+- `frontend/api/github.ts` edge function: `?` (batch, 5 population queries × 100), `?search=`, `?repo=owner/name`. Per-key memory cache (5 min fresh) + `Cache-Control: s-maxage=300, stale-while-revalidate=1800`; on rate-limit/network failure serves the last good copy (`source: stale-cache`), 503 only if nothing was ever cached.
+- No `GITHUB_TOKEN` (or `GITHUB_PROVIDER=mock`) → same shapes from fixtures. Adding a token switches to live data with no code change.
+- `pnpm dev` serves the edge function locally through a Vite middleware (`vite.config.ts`), reading `.env` from `git-ocean/` or `frontend/`.
+- Client (`data/github.ts`) remembers the last batch in localStorage and falls back to it, then to fixtures. `data/resolve.ts`: local substring match → edge search → `fabricate.ts` (deterministic, flagged `fabricated`).
+- Verified: 23 unit tests incl. cache hit, 403 rate-limit and network-failure fallback, 503 with empty cache, netting count, fabrication determinism, search ranking. GitHub is mocked in every test.
 
 ## Phase 4 — Search & Dive, Depth Compass
 Not started.
