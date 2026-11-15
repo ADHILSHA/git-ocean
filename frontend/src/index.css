@@ -1,0 +1,63 @@
+:root {
+  --abyss: #00060f;
+  --deep: #04121d;
+  --surface: #0d4a68;
+  --ink: #e6f6fb;
+  --ink-soft: #a9cfdc;
+  --ink-faint: #7fa9b8;
+  --glow: #8fe3ff;
+  --warn: #ffb48a;
+  --glass: rgba(9, 38, 54, 0.42);
+  --glass-strong: rgba(6, 26, 38, 0.66);
+  --glass-edge: rgba(143, 227, 255, 0.22);
+  --font-ui: 'Instrument Sans Variable', 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-measure: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: var(--abyss);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+::selection {
+  background: rgba(143, 227, 255, 0.35);
+  color: #fff;
+}
+
+input {
+  caret-color: var(--glow);
+}
+
+:focus-visible {
+  outline: 2px solid var(--glow);
+  outline-offset: 3px;
+}
+
+.ocean {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background: linear-gradient(#0d4a68, #00060f);
+}
+
+.ocean-canvas {
+  position: absolute !important;
+  inset: 0;
+  touch-action: none;
+}

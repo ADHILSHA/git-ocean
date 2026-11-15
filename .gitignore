@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.env
+.env.local
+.vercel/
+frontend/test-results/
+frontend/playwright-report/
+.impeccable/questions/
+.impeccable/mocks/
+.impeccable/review/
+.DS_Store
